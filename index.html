@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<body>
+<h3>Specification</h3>
+<hr />
+<p>Design and implement the class <b>Deque&lt;T, A&gt;</b> to conform to <b>std::deque&lt;T, A&gt;</b>.</p>
+
+<p>A <b>deque</b> is an attractive compromise between a <b>vector</b> and a <b>list</b>.</p>
+
+<p class="nobottom"><b>vector</b> is:</p>
+<ul class="notop">
+<li><b>linear</b> when adding elements to the beginning or the middle</li>
+<li><b>amortized constant</b> when adding elements to the end</li>
+<li><b>linear</b> when removing elements from the beginning or the middle</li>
+<li><b>constant</b> when removing elements from the end</li>
+<li><b>constant</b> when indexing elements</li>
+</ul>
+
+<p class="nobottom"><b>list</b> is:</p>
+<ul class="notop">
+<li><b>constant</b> when adding elements</li>
+<li><b>constant</b> when removing elements</li>
+<li><b>linear</b> when indexing elements</li>
+</ul>
+
+<p class="nobottom"><b>deque</b> is:</p>
+<ul class="notop">
+<li><b>amortized constant</b> when adding elements to the beginning or the end</li>
+<li><b>linear</b> when adding elements to the middle</li>
+<li><b>constant</b> when removing elements from the beginning or the end</li>
+<li><b>linear</b> when removing elements from the middle</li>
+<li><b>constant</b> when indexing elements</li>
+</ul>
+
+<p>A <b>deque</b> is very similar to a <b>vector</b> except that the elements are stored in the <b>center</b> of a two-dimensional array instead of at the <b>beginning</b> a one-dimensional array.</p>
+
+<p>Also, the outer array is <b>circular</b>.</p>
+
+<p>You <b>must not</b> use <b>new</b>, <b>delete</b>, <b>malloc()</b> or <b>free()</b>.</p>
+
+<h3>Analysis</h3>
+<hr />
+<p>These are additional descriptions of the underlying semantics:</p>
+<ul>
+<li><a href="http://www.cplusplus.com/reference/stl/deque/">C++ Reference</a></li>
+</ul>
+
+<h3>Issues and Submission</h3>
+<table border="1" cellspacing="0">
+<tr bgcolor="#dddddd">
+<th>Points</th>
+<th>Description</th>
+<th>Files</th>
+<th>Submission</th>
+</tr>
+
+<tr>
+<th align="center">5</th>
+<td>
+<b>issue tracking</b><br />
+Track the following issues and any bugs in the <b>Google Project</b> issue tracker.
+Post the <b>URL</b> to <b>Blackboard</b>.
+</td>
+<td></td>
+<td>Google Project<br />Blackboard</td>
+</tr>
+
+<tr>
+<th align="center">5</th>
+<td>
+<b>source control</b><br />
+Set up a <b>Git</b> repository for a source control system.
+Create a <b>log</b> of the commits.
+There should be <b>several</b> commits.
+It is <b>your</b> responsibility to protect your code from the rest of the students in the class.
+If your code gets out, <b>you</b> are as guilty as the recipient of <b>academic dishonesty</b>.
+</td>
+<td>Deque.log</td>
+<td>Turnin</td>
+</tr>
+
+<tr>
+<th align="center">20</th>
+<td>
+<b>unit tests</b><br />
+Create a set of <b>unit</b> tests.
+An initial set of tests is provided that may or may not be correct.
+Add <b>many</b> more tests.
+Post the <b>unit</b> tests to the <b>Google Project</b> wiki.<br />
+<b>C++:</b> Use <b>Valgrind</b>.
+</td>
+<td>
+<a href="http://github.com/gpdowning/cs378/blob/master/projects/deque/TestDeque.c++">TestDeque.c++</a><br />
+<a href="http://github.com/gpdowning/cs378/blob/master/projects/deque/TestDeque.c++.out">TestDeque.c++.out</a>
+</td>
+<td>Google Project<br />Turnin</td>
+</tr>
+
+<tr>
+<th align="center">20</th>
+<td>
+<b>implementation</b><br />
+Use <b>assert</b> to check <b>pre-conditions</b>, <b>post-conditions</b>, <b>argument validity</b>, <b>return-value validity</b>, and <b>invariants</b>.
+Worry about this <b>last</b>, but your program should run as <b>fast</b> as possible and use as <b>little</b> memory as possible.
+</td>
+<td>
+<a href="http://github.com/gpdowning/cs378/blob/master/projects/deque/Deque.h">Deque.h</a><br />
+</td>
+<td>Turnin</td>
+</tr>
+
+<tr>
+<th align="center">5</th>
+<td>
+<b>documentation</b><br />
+<b>C++:</b> Use <b>Doxygen</b> to document the <b>interfaces</b>.<br />
+The above documentation only needs to be generated from <b>Deque.h</b>.
+Use comments <b>only</b> if you need to explain the <b>why</b> of a particular implementation.
+Choose a coding convention and be consistent.
+Use good variable names.
+Write readable code with good indentation, blank lines, and blank spaces.
+</td>
+<td>html/*</td>
+<td>Turnin</td>
+</tr>
+
+<tr>
+<th align="center">5</th>
+<td>
+<b>design</b><br />
+Describe the algorithm and any optimizations in the <b>Google Project</b> wiki.
+</td>
+<td></td>
+<td>Google Project</td>
+</tr>
+
+<tr>
+<th>5</th>
+<td>
+<b>overview</b><br />
+Fill out the overview.
+</td>
+<td></td>
+<td>Google Form</td>
+</tr>
+</table>
+</body>
+</html>
