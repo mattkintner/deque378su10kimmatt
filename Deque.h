@@ -103,9 +103,10 @@ class Deque {
          * <your documentation>
          */
         friend bool operator == (const Deque& lhs, const Deque& rhs) {
-            // <your code>
-            // you must use std::equal()
-            return true;}
+            iterator lb = lhs.begin(), le = lhs.end(), rb = rhs.begin(), re = rhs.end();
+            if(le-lb != rb-re)
+                return false;
+            return std::equal(lb,le,re);}
 
         // ----------
         // operator <
@@ -117,16 +118,18 @@ class Deque {
         friend bool operator < (const Deque& lhs, const Deque& rhs) {
             // <your code>
             // you must use std::lexicographical_compare()
-            return true;}
+            return std::lexicographical_compare(lhs.begin(),lhs.end(),rhs.begin(),rhs.end());}
 
     private:
         // ----
         // data
         // ----
 
-        allocator_type a;
+        const size_type INNER_SIZE;
 
-        // <your data>
+        allocator_type _a;
+
+        pointer _data, _front, _back;
 
     private:
         // -----
@@ -487,8 +490,9 @@ class Deque {
         /**
          * <your documentation>
          */
-        explicit Deque (const allocator_type& a = allocator_type()) {
-            // <your code>
+        explicit Deque (const allocator_type& a = allocator_type()) : _a(a), INNER_SIZE(10) {
+            _data = _a.allocate(INNER_SIZE);
+            _front = _back = _data + INNER_SIZE/2;
             assert(valid());}
 
         /**
@@ -513,7 +517,9 @@ class Deque {
          * <your documentation>
          */
         ~Deque () {
-            // <your code>
+            while(!empty())
+                pop_back();
+            _a.deallocate(_data,INNER_SIZE);
             assert(valid());}
 
         // ----------
@@ -536,10 +542,7 @@ class Deque {
          * <your documentation>
          */
         reference operator [] (size_type index) {
-            // <your code>
-            // dummy is just to be able to compile the skeleton, remove it
-            static value_type dummy;
-            return dummy;}
+            return _front[index];}
 
         /**
          * <your documentation>
@@ -693,14 +696,16 @@ class Deque {
          * <your documentation>
          */
         void pop_back () {
-            // <your code>
+            _back = _back - 1;
+            _a.destroy(_back);
             assert(valid());}
 
         /**
          * <your documentation>
          */
         void pop_front () {
-            // <your code>
+            _a.destroy(_front);
+            _front = _front + 1;
             assert(valid());}
 
         // ----
@@ -710,15 +715,17 @@ class Deque {
         /**
          * <your documentation>
          */
-        void push_back (const_reference) {
-            // <your code>
+        void push_back (const_reference e) {
+            _a.construct(_back, e);
+            _back = _back + 1;
             assert(valid());}
 
         /**
          * <your documentation>
          */
-        void push_front (const_reference) {
-            // <your code>
+        void push_front (const_reference e) {
+            _front = _front - 1;
+            _a.construct(_front, e);
             assert(valid());}
 
         // ------
@@ -740,8 +747,7 @@ class Deque {
          * <your documentation>
          */
         size_type size () const {
-            // <your code>
-            return 0;}
+            return _back - _front;}
 
         // ----
         // swap
