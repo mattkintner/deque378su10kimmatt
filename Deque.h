@@ -506,8 +506,10 @@ class Deque {
          * @param a the allocator for this deque
          * constructs a deque of size s filled with value v
          */
-        explicit Deque (size_type s, const_reference v = value_type(), const allocator_type& a = allocator_type()) {
-            // <your code>
+        explicit Deque (size_type s, const_reference v = value_type(), const allocator_type& a = allocator_type()) : _a(a), INNER_SIZE(10) {
+            _data = _a.allocate(INNER_SIZE);
+            _front = _back = _data + INNER_SIZE/2;
+            resize(s,v);
             assert(valid());}
 
         /**
