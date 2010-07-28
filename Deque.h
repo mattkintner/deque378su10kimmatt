@@ -736,7 +736,15 @@ class Deque {
          * <your documentation>
          */
         void resize (size_type s, const_reference v = value_type()) {
-            // <your code>
+            size_type my_size = size();
+            while(s < my_size) {
+                pop_back();
+                --my_size;
+            }
+            while(s > my_size) {
+                push_back(v);
+                ++ my_size;
+            }
             assert(valid());}
 
         // ----
