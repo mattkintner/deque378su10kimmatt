@@ -100,7 +100,9 @@ class Deque {
         // -----------
 
         /**
-         * <your documentation>
+         * @param lhs the first deque to compare
+         * @param rhs the second deque to compare
+         * @return true if the two deques store the same values in the same order, false otherwise
          */
         friend bool operator == (const Deque& lhs, const Deque& rhs) {
             iterator lb = lhs.begin(), le = lhs.end(), rb = rhs.begin(), re = rhs.end();
@@ -113,11 +115,11 @@ class Deque {
         // ----------
 
         /**
-         * <your documentation>
+         * @param lhs the first deque to compare
+         * @param rhs the second deque to compare
+         * @return true if the first deque is lexicographically less than the second, false otherwise
          */
         friend bool operator < (const Deque& lhs, const Deque& rhs) {
-            // <your code>
-            // you must use std::lexicographical_compare()
             return std::lexicographical_compare(lhs.begin(),lhs.end(),rhs.begin(),rhs.end());}
 
     private:
@@ -488,7 +490,9 @@ class Deque {
         // ------------
 
         /**
-         * <your documentation>
+         * Constructor
+         * @param a the allocator for this deque
+         * constructs an empty deque
          */
         explicit Deque (const allocator_type& a = allocator_type()) : _a(a), INNER_SIZE(10) {
             _data = _a.allocate(INNER_SIZE);
@@ -496,14 +500,19 @@ class Deque {
             assert(valid());}
 
         /**
-         * <your documentation>
+         * Constructor
+         * @param s the initial size of this deque
+         * @param v the value used to fill the initial elements
+         * @param a the allocator for this deque
+         * constructs a deque of size s filled with value v
          */
         explicit Deque (size_type s, const_reference v = value_type(), const allocator_type& a = allocator_type()) {
             // <your code>
             assert(valid());}
 
         /**
-         * <your documentation>
+         * Copy Constructor
+         * @param that the deque to copy into this deque
          */
         Deque (const Deque& that) {
             // <your code>
@@ -514,7 +523,7 @@ class Deque {
         // ----------
 
         /**
-         * <your documentation>
+         * Destructor
          */
         ~Deque () {
             while(!empty())
@@ -539,13 +548,15 @@ class Deque {
         // -----------
 
         /**
-         * <your documentation>
+         * @param index the index of the element to return
+         * @return a reference to that element
          */
         reference operator [] (size_type index) {
             return _front[index];}
 
         /**
-         * <your documentation>
+         * @param index the index of the element to return
+         * @return a constant reference to that element
          */
         const_reference operator [] (size_type index) const {
             return const_cast<Deque*>(this)->operator[](index);}
@@ -593,14 +604,14 @@ class Deque {
         // -----
 
         /**
-         * <your documentation>
+         * @return an iterator pointing to the first element of the deque
          */
         iterator begin () {
             // <your code>
             return iterator(/* <your arguments> */);}
 
         /**
-         * <your documentation>
+         * @return a constant iterator pointing to the first element of the deque
          */
         const_iterator begin () const {
             // <your code>
@@ -611,7 +622,7 @@ class Deque {
         // -----
 
         /**
-         * <your documentation>
+         * removes all of the elements of this deque
          */
         void clear () {
             // <your code>
@@ -622,7 +633,7 @@ class Deque {
         // -----
 
         /**
-         * <your documentation>
+         * @return true if this deque is empty, false otherwise
          */
         bool empty () const {
             return !size();}
@@ -632,14 +643,14 @@ class Deque {
         // ---
 
         /**
-         * <your documentation>
+         * @return an iterator pointing to one past the last element of this deque
          */
         iterator end () {
             // <your code>
             return iterator(/* <your arguments> */);}
 
         /**
-         * <your documentation>
+         * @return a constant iterator pointing to one past the last element of this deque
          */
         const_iterator end () const {
             // <your code>
@@ -693,7 +704,7 @@ class Deque {
         // ---
 
         /**
-         * <your documentation>
+         * removes the last element of this deque
          */
         void pop_back () {
             _back = _back - 1;
@@ -701,7 +712,7 @@ class Deque {
             assert(valid());}
 
         /**
-         * <your documentation>
+         * removes the first element of this deque
          */
         void pop_front () {
             _a.destroy(_front);
@@ -713,7 +724,8 @@ class Deque {
         // ----
 
         /**
-         * <your documentation>
+         * @param e the element to add
+         * adds e to the end of the deque
          */
         void push_back (const_reference e) {
             _a.construct(_back, e);
@@ -721,7 +733,8 @@ class Deque {
             assert(valid());}
 
         /**
-         * <your documentation>
+         * @param e the element to add
+         * adds e to the beginning of the deque
          */
         void push_front (const_reference e) {
             _front = _front - 1;
@@ -733,7 +746,11 @@ class Deque {
         // ------
 
         /**
-         * <your documentation>
+         * @param s the new size of the deque
+         * @param v the value used to fill new elements
+         * resizes the deque, truncating the ending elements if the new size
+         * is smaller than the current size, or adding new elements with the
+         * value v to the end of the deque if the new size is larger
          */
         void resize (size_type s, const_reference v = value_type()) {
             size_type my_size = size();
@@ -752,7 +769,7 @@ class Deque {
         // ----
 
         /**
-         * <your documentation>
+         * @return the number of elements currently in this deque
          */
         size_type size () const {
             return _back - _front;}
