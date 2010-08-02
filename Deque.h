@@ -577,16 +577,19 @@ class Deque {
         // --
 
         /**
-         * <your documentation>
+         * @param index the index of the element to return
+         * @return a reference to that element
+         * @throw invalid_argument if the index is invalid
          */
         reference at (size_type index) {
-            // <your code>
-            // dummy is just to be able to compile the skeleton, remove it
-            static value_type dummy;
-            return dummy;}
+            if(index < 0 || index >= size())
+                throw std::invalid_argument("deque::_M_range_check");
+            return operator[](index);}
 
         /**
-         * <your documentation>
+         * @param index the index of the element to return
+         * @return a constant reference to that element
+         * @throw invalid_argument if the index is invalid
          */
         const_reference at (size_type index) const {
             return const_cast<Deque*>(this)->at(index);}
@@ -596,16 +599,13 @@ class Deque {
         // ----
 
         /**
-         * <your documentation>
+         * @return a reference to the last element in this deque
          */
         reference back () {
-            // <your code>
-            // dummy is just to be able to compile the skeleton, remove it
-            static value_type dummy;
-            return dummy;}
+            return *(end()-1);}
 
         /**
-         * <your documentation>
+         * @return a constant reference to the last element in this deque
          */
         const_reference back () const {
             return const_cast<Deque*>(this)->back();}
@@ -684,16 +684,13 @@ class Deque {
         // -----
 
         /**
-         * <your documentation>
+         * @return a reference to the first element of this deque
          */
         reference front () {
-            // <your code>
-            // dummy is just to be able to compile the skeleton, remove it
-            static value_type dummy;
-            return dummy;}
+            return *begin();}
 
         /**
-         * <your documentation>
+         * @return a constant reference to the first element of this deque
          */
         const_reference front () const {
             return const_cast<Deque*>(this)->front();}
@@ -792,7 +789,7 @@ class Deque {
         /**
          * <your documentation>
          */
-        void swap (Deque&) {
+        void swap (Deque& that) {
             // <your code>
             assert(valid());}};
 
