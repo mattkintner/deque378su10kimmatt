@@ -93,6 +93,11 @@ class Deque {
 
         typedef typename allocator_type::reference       reference;
         typedef typename allocator_type::const_reference const_reference;
+        
+        typedef typename allocator_type::rebind<pointer>::other pointer_allocator_type;
+        
+        typedef typename pointer_allocator_type::pointer        pointer_pointer;
+        typedef typename pointer_allocator_type::const_pointer  pointer_const_pointer;
 
     public:
         // -----------
@@ -105,10 +110,7 @@ class Deque {
          * @return true if the two deques store the same values in the same order, false otherwise
          */
         friend bool operator == (const Deque& lhs, const Deque& rhs) {
-            iterator lb = lhs.begin(), le = lhs.end(), rb = rhs.begin(), re = rhs.end();
-            if(le-lb != rb-re)
-                return false;
-            return std::equal(lb,le,re);}
+            return lhs.size() == rhs.size() && std::equal(lhs.begin(),lhs.end(),rhs.begin());}
 
         // ----------
         // operator <
@@ -129,9 +131,16 @@ class Deque {
 
         const size_type INNER_SIZE;
 
-        allocator_type _a;
+        allocator_type _inner_alloc;
+        
+        pointer_allocator_type _outer_alloc;
 
-        pointer _data, _front, _back;
+        pointer_pointer _outer_pfront,
+                        _outer_lfront,
+                        _outer_lback,
+                        _outer_pback;
+                        
+        pointer _front, _back;
 
     private:
         // -----
