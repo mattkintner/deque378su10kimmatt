@@ -177,8 +177,7 @@ class Deque {
                  * <your documentation>
                  */
                 friend bool operator == (const iterator& lhs, const iterator& rhs) {
-                    // <your code>
-                    return true;}
+                    return lhs._element == rhs._element;}
 
                 // ----------
                 // operator +
@@ -205,7 +204,8 @@ class Deque {
                 // data
                 // ----
 
-                // <your data>
+                pointer _element;
+                Deque<T,A>* _deque;
 
             private:
                 // -----
@@ -224,8 +224,7 @@ class Deque {
                 /**
                  * <your documentation>
                  */
-                iterator (/* <your arguments> */) {
-                    // <your code>
+                iterator (pointer element, Deque<T,A>* deque) : _element(element), _deque(deque) {
                     assert(valid());}
 
                 // Default copy, destructor, and copy assignment.
@@ -241,10 +240,7 @@ class Deque {
                  * <your documentation>
                  */
                 reference operator * () const {
-                    // <your code>
-                    // dummy is just to be able to compile the skeleton, remove it
-                    static value_type dummy;
-                    return dummy;}
+                    return *_element;}
 
                 // -----------
                 // operator ->
@@ -264,7 +260,7 @@ class Deque {
                  * <your documentation>
                  */
                 iterator& operator ++ () {
-                    // <your code>
+                    operator+=(1);
                     assert(valid());
                     return *this;}
 
@@ -285,7 +281,7 @@ class Deque {
                  * <your documentation>
                  */
                 iterator& operator -- () {
-                    // <your code>
+                    operator-=(1);
                     assert(valid());
                     return *this;}
 
@@ -348,8 +344,7 @@ class Deque {
                  * <your documentation>
                  */
                 friend bool operator == (const const_iterator& lhs, const const_iterator& rhs) {
-                    // <your code>
-                    return true;}
+                    return lhs._element == rhs._element;}
 
                 // ----------
                 // operator +
@@ -376,7 +371,8 @@ class Deque {
                 // data
                 // ----
 
-                // <your data>
+                pointer _element;
+                Deque<T,A>* _deque;
 
             private:
                 // -----
@@ -395,8 +391,7 @@ class Deque {
                 /**
                  * <your documentation>
                  */
-                const_iterator (/* <your arguments> */) {
-                    // <your code>
+                const_iterator (pointer element, Deque<T,A>* deque) : _element(element), _deque(deque) {
                     assert(valid());}
 
                 // Default copy, destructor, and copy assignment.
@@ -412,10 +407,7 @@ class Deque {
                  * <your documentation>
                  */
                 reference operator * () const {
-                    // <your code>
-                    // dummy is just to be able to compile the skeleton, remove it
-                    static value_type dummy;
-                    return dummy;}
+                    return *_element;}
 
                 // -----------
                 // operator ->
@@ -435,7 +427,7 @@ class Deque {
                  * <your documentation>
                  */
                 const_iterator& operator ++ () {
-                    // <your code>
+                    operator+=(1);
                     assert(valid());
                     return *this;}
 
@@ -456,7 +448,7 @@ class Deque {
                  * <your documentation>
                  */
                 const_iterator& operator -- () {
-                    // <your code>
+                    operator-=(1);
                     assert(valid());
                     return *this;}
 
@@ -504,8 +496,7 @@ class Deque {
          * constructs an empty deque
          */
         explicit Deque (const allocator_type& a = allocator_type()) : _a(a), INNER_SIZE(10) {
-            _data = _a.allocate(INNER_SIZE);
-            _front = _back = _data + INNER_SIZE/2;
+        	_outer_pfront = _outer_pback = _outer_lfront = _outer_lback = _front = _back = 0;
             assert(valid());}
 
         /**
@@ -516,9 +507,12 @@ class Deque {
          * constructs a deque of size s filled with value v
          */
         explicit Deque (size_type s, const_reference v = value_type(), const allocator_type& a = allocator_type()) : _a(a), INNER_SIZE(10) {
-            _data = _a.allocate(INNER_SIZE);
-            _front = _back = _data + INNER_SIZE/2;
-            resize(s,v);
+        	pointer_pointer start = _outer_pfront = _outer_lfront = _outer_alloc.allocate(s/INNER_SIZE);
+        	_outer_pback = _outer_lback = _outer_pfront + s/INNER_SIZE;
+        	while(start < _outer_pback) {
+	        	*start = _inner_alloc(INNER_SIZE);
+        	}
+        	//fill
             assert(valid());}
 
         /**
@@ -539,7 +533,13 @@ class Deque {
         ~Deque () {
             while(!empty())
                 pop_back();
-            _a.deallocate(_data,INNER_SIZE);
+            while(_outer_lfront < _outer_lback) {
+            	_inner_alloc.deallocate(_outer_lfront,INNER_SIZE);
+            	_outer_alloc.destroy(_outer_lfront);
+            	++_outer_lfront;
+        	}
+        	_outer_alloc.deallocate(_outer_pfront,_outer_pback-_outer_pfront);
+        	_outer_pfront = _outer_pback = _outer_lfront = _outer_lback = _front = _back = 0;
             assert(valid());}
 
         // ----------
@@ -563,7 +563,8 @@ class Deque {
          * @return a reference to that element
          */
         reference operator [] (size_type index) {
-            return _front[index];}
+	        difference_type offset = _front - _outer_lfront;
+            return _outer_lfront[(index+offset)/INNER_SIZE][((index%INNER_SIZE)+offset)%INNER_SIZE];}
 
         /**
          * @param index the index of the element to return
@@ -618,15 +619,13 @@ class Deque {
          * @return an iterator pointing to the first element of the deque
          */
         iterator begin () {
-            // <your code>
-            return iterator(/* <your arguments> */);}
+            return iterator(_front,this);}
 
         /**
          * @return a constant iterator pointing to the first element of the deque
          */
         const_iterator begin () const {
-            // <your code>
-            return const_iterator(/* <your arguments> */);}
+            return const_iterator(_front,this);}
 
         // -----
         // clear
@@ -636,7 +635,8 @@ class Deque {
          * removes all of the elements of this deque
          */
         void clear () {
-            // <your code>
+            while(size())
+            	pop_back();
             assert(valid());}
 
         // -----
@@ -657,15 +657,13 @@ class Deque {
          * @return an iterator pointing to one past the last element of this deque
          */
         iterator end () {
-            // <your code>
-            return iterator(/* <your arguments> */);}
+            return iterator(_back,this);}
 
         /**
          * @return a constant iterator pointing to one past the last element of this deque
          */
         const_iterator end () const {
-            // <your code>
-            return const_iterator(/* <your arguments> */);}
+            return const_iterator(_back,this);}
 
         // -----
         // erase
@@ -787,10 +785,23 @@ class Deque {
         // ----
 
         /**
-         * <your documentation>
+         * @param that the deque with which to swap data
+         * swaps the data between this and that deque
          */
         void swap (Deque& that) {
-            // <your code>
+            if(_inner_alloc == that._inner_alloc && _outer_alloc == that._outer_alloc) {
+	            std::swap(_outer_pfront,that._outer_pfront);
+	            std::swap(_outer_lfront,that._outer_lfront);
+	            std::swap(_outer_pback, that._outer_pback);
+	            std::swap(_outer_lback, that._outer_lback);
+	            std::swap(_front,       that._front);
+	            std::swap(_back,        that._back);
+            }
+            else {
+	            Deque temp(*this);
+	            *this = that;
+	            that = temp;
+            }
             assert(valid());}};
 
 #endif // Deque_h
