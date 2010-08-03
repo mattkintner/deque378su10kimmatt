@@ -51,7 +51,7 @@ BI uninitialized_copy (A& a, II b, II e, BI x) {
             ++b;
             ++x;}}
     catch (...) {
-        my_destroy(a, p, x);
+        destroy(a, p, x);
         throw;}
     return x;}
 
@@ -67,7 +67,7 @@ BI uninitialized_fill (A& a, BI b, BI e, const U& v) {
             a.construct(&*b, v);
             ++b;}}
     catch (...) {
-        my_destroy(a, p, b);
+        destroy(a, p, b);
         throw;}
     return e;}
 
@@ -496,7 +496,8 @@ class Deque {
          * constructs an empty deque
          */
         explicit Deque (const allocator_type& a = allocator_type()) : _inner_alloc(a), INNER_SIZE(10) {
-        	_outer_pfront = _outer_pback = _outer_lfront = _outer_lback = _front = _back = 0;
+        	_outer_pfront = _outer_pback = _outer_lfront = _outer_lback = 0;
+        	_front = _back = 0;
             assert(valid());}
 
         /**
@@ -550,12 +551,13 @@ class Deque {
             while(!empty())
                 pop_back();
             while(_outer_lfront < _outer_lback) {
-            	_inner_alloc.deallocate(_outer_lfront,INNER_SIZE);
+            	_inner_alloc.deallocate(*_outer_lfront,INNER_SIZE);
             	_outer_alloc.destroy(_outer_lfront);
             	++_outer_lfront;
         	}
         	_outer_alloc.deallocate(_outer_pfront,_outer_pback-_outer_pfront);
-        	_outer_pfront = _outer_pback = _outer_lfront = _outer_lback = _front = _back = 0;
+        	_outer_pfront = _outer_pback = _outer_lfront = _outer_lback = 0;
+        	_front = _back = 0;
             assert(valid());}
 
         // ----------
