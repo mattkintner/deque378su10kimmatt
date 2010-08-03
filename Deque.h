@@ -148,8 +148,8 @@ class Deque {
         // -----
 
         bool valid () const {
-            // <your code>
-            return true;}
+            return (_outer_pfront == 0 && _outer_lfront == 0 && _outer_lback == 0 && _outer_pback == 0 && _front == 0 && _back == 0)
+                || (_outer_pfront <= _outer_lfront && _outer_lfront <= _outer_lback && _outer_lback <= _outer_pback && *_outer_lfront <= _front && _back < *(_outer_lback-1) + INNER_SIZE;}
 
     public:
         // --------
@@ -495,7 +495,7 @@ class Deque {
          * @param a the allocator for this deque
          * constructs an empty deque
          */
-        explicit Deque (const allocator_type& a = allocator_type()) : _a(a), INNER_SIZE(10) {
+        explicit Deque (const allocator_type& a = allocator_type()) : _inner_alloc(a), INNER_SIZE(10) {
         	_outer_pfront = _outer_pback = _outer_lfront = _outer_lback = _front = _back = 0;
             assert(valid());}
 
@@ -506,7 +506,7 @@ class Deque {
          * @param a the allocator for this deque
          * constructs a deque of size s filled with value v
          */
-        explicit Deque (size_type s, const_reference v = value_type(), const allocator_type& a = allocator_type()) : _a(a), INNER_SIZE(10) {
+        explicit Deque (size_type s, const_reference v = value_type(), const allocator_type& a = allocator_type()) : _inner_alloc(a), INNER_SIZE(10) {
         	pointer_pointer start = _outer_pfront = _outer_lfront = _outer_alloc.allocate(s/INNER_SIZE);
         	size_type allocated = 0, filled = 0, skip;
         	_outer_pback = _outer_lback = _outer_pfront + s/INNER_SIZE;
@@ -522,7 +522,7 @@ class Deque {
          * Copy Constructor
          * @param that the deque to copy into this deque
          */
-        Deque (const Deque& that) {
+        Deque (const Deque& that) : _inner_alloc(that._inner_alloc), _outer_alloc(that._outer_alloc), INNER_SIZE(10) {
             // <your code>
             assert(valid());}
 
@@ -566,7 +566,7 @@ class Deque {
          * @return a reference to that element
          */
         reference operator [] (size_type index) {
-	        difference_type offset = _front - _outer_lfront;
+	        difference_type offset = _front - *_outer_lfront;
             return _outer_lfront[(index+offset)/INNER_SIZE][((index%INNER_SIZE)+offset)%INNER_SIZE];}
 
         /**
@@ -622,13 +622,13 @@ class Deque {
          * @return an iterator pointing to the first element of the deque
          */
         iterator begin () {
-            return iterator(_front,this);}
+            return iterator(0,this);}
 
         /**
          * @return a constant iterator pointing to the first element of the deque
          */
         const_iterator begin () const {
-            return const_iterator(_front,this);}
+            return const_iterator(0,this);}
 
         // -----
         // clear
@@ -660,13 +660,13 @@ class Deque {
          * @return an iterator pointing to one past the last element of this deque
          */
         iterator end () {
-            return iterator(_back,this);}
+            return iterator(size(),this);}
 
         /**
          * @return a constant iterator pointing to one past the last element of this deque
          */
         const_iterator end () const {
-            return const_iterator(_back,this);}
+            return const_iterator(size(),this);}
 
         // -----
         // erase
@@ -769,7 +769,7 @@ class Deque {
             }
             while(s > my_size) {
                 push_back(v);
-                ++ my_size;
+                ++my_size;
             }
             assert(valid());}
 
@@ -781,7 +781,7 @@ class Deque {
          * @return the number of elements currently in this deque
          */
         size_type size () const {
-            return _back - _front;}
+            return (_outer_lback - _outer_lfront)*INNER_SIZE - (_front - *_outer_lfront) - ((*(_outer_lback-1)+INNER_SIZE) - _back);}
 
         // ----
         // swap
