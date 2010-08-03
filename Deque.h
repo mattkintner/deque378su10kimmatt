@@ -2,6 +2,8 @@
 // projects/deque/Deque.h
 // Copyright (C) 2010
 // Glenn P. Downing
+// Edited by: Matt Kintner
+//            Kimberly Timm Bassett
 // ----------------------
 
 #ifndef Deque_h
@@ -524,9 +526,11 @@ class Deque {
 		//Total number of spaces allocated minus the number of the size requested divided by 2 to help make it center loaded. 
         	skip = (allocated - s)/2;
 
-
+		//Set the logical array pointers
         	_front = (*_outer_lfront)+skip;
         	_back = (*_outer_lback-1)+(INNER_SIZE-((allocated-s)-skip));
+
+		//Fill the array with the user's v
         	uninitialized_fill(_inner_alloc,begin(),end(),v);
             assert(valid());}
 
