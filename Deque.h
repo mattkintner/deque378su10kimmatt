@@ -177,7 +177,7 @@ class Deque {
                  * <your documentation>
                  */
                 friend bool operator == (const iterator& lhs, const iterator& rhs) {
-                    return lhs._element == rhs._element;}
+                    return lhs._index == rhs._index; && lhs._deque == rhs._deque;}
 
                 // ----------
                 // operator +
@@ -344,7 +344,7 @@ class Deque {
                  * <your documentation>
                  */
                 friend bool operator == (const const_iterator& lhs, const const_iterator& rhs) {
-                    return lhs._element == rhs._element;}
+                    return lhs._index == rhs._index && lhs._deque == rhs._deque;}
 
                 // ----------
                 // operator +
