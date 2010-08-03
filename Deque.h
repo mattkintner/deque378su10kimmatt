@@ -515,7 +515,9 @@ class Deque {
 	        	allocated += INNER_SIZE;
         	}
         	skip = (allocated - s)/2;
-        	//uninitialized_fill(_inner_alloc,_outer_lfront+skip,  //still working on this
+        	_front = (*_outer_lfront)+skip;
+        	_back = (*_outer_lback-1)+(INNER_SIZE-((allocated-s)-skip));
+        	uninitialized_fill(_inner_alloc,begin(),end(),v);
             assert(valid());}
 
         /**
@@ -523,7 +525,18 @@ class Deque {
          * @param that the deque to copy into this deque
          */
         Deque (const Deque& that) : _inner_alloc(that._inner_alloc), _outer_alloc(that._outer_alloc), INNER_SIZE(10) {
-            // <your code>
+	        size_type s = that.size();
+            pointer_pointer start = _outer_pfront = _outer_lfront = _outer_alloc.allocate(s/INNER_SIZE);
+        	size_type allocated = 0, filled = 0, skip;
+        	_outer_pback = _outer_lback = _outer_pfront + s/INNER_SIZE;
+        	while(start < _outer_pback) {
+	        	*start = _inner_alloc(INNER_SIZE);
+	        	allocated += INNER_SIZE;
+        	}
+        	skip = (allocated - s)/2;
+        	_front = (*_outer_lfront)+skip;
+        	_back = (*_outer_lback-1)+(INNER_SIZE-((allocated-s)-skip));
+        	uninitialized_copy(_inner_alloc,that.begin(),that.end(),begin());
             assert(valid());}
 
         // ----------
