@@ -596,6 +596,7 @@ class Deque {
          */
         reference operator [] (size_type index) {
 	        difference_type offset = _front - *_outer_lfront;
+
             return _outer_lfront[(index+offset)/INNER_SIZE][((index%INNER_SIZE)+offset)%INNER_SIZE];}
 
         /**
