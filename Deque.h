@@ -94,7 +94,7 @@ class Deque {
         typedef typename allocator_type::reference       reference;
         typedef typename allocator_type::const_reference const_reference;
         
-        typedef typename allocator_type::rebind<pointer>::other pointer_allocator_type;
+        typedef typename allocator_type::template rebind<pointer>::other pointer_allocator_type;
         
         typedef typename pointer_allocator_type::pointer        pointer_pointer;
         typedef typename pointer_allocator_type::const_pointer  pointer_const_pointer;
@@ -149,7 +149,7 @@ class Deque {
 
         bool valid () const {
             return (_outer_pfront == 0 && _outer_lfront == 0 && _outer_lback == 0 && _outer_pback == 0 && _front == 0 && _back == 0)
-                || (_outer_pfront <= _outer_lfront && _outer_lfront <= _outer_lback && _outer_lback <= _outer_pback && *_outer_lfront <= _front && _back < *(_outer_lback-1) + INNER_SIZE;}
+                || (_outer_pfront <= _outer_lfront && _outer_lfront <= _outer_lback && _outer_lback <= _outer_pback && *_outer_lfront <= _front && _back < *(_outer_lback-1) + INNER_SIZE);}
 
     public:
         // --------
@@ -177,7 +177,7 @@ class Deque {
                  * <your documentation>
                  */
                 friend bool operator == (const iterator& lhs, const iterator& rhs) {
-                    return lhs._index == rhs._index; && lhs._deque == rhs._deque;}
+                    return lhs._index == rhs._index && lhs._deque == rhs._deque;}
 
                 // ----------
                 // operator +
@@ -512,8 +512,9 @@ class Deque {
         	size_type allocated = 0, filled = 0, skip;
         	_outer_pback = _outer_lback = _outer_pfront + s/INNER_SIZE;
         	while(start < _outer_pback) {
-	        	*start = _inner_alloc(INNER_SIZE);
+	        	*start = _inner_alloc.allocate(INNER_SIZE);
 	        	allocated += INNER_SIZE;
+                ++start;
         	}
         	skip = (allocated - s)/2;
         	_front = (*_outer_lfront)+skip;
@@ -531,8 +532,9 @@ class Deque {
         	size_type allocated = 0, filled = 0, skip;
         	_outer_pback = _outer_lback = _outer_pfront + s/INNER_SIZE;
         	while(start < _outer_pback) {
-	        	*start = _inner_alloc(INNER_SIZE);
+	        	*start = _inner_alloc.allocate(INNER_SIZE);
 	        	allocated += INNER_SIZE;
+                ++start;
         	}
         	skip = (allocated - s)/2;
         	_front = (*_outer_lfront)+skip;
@@ -732,14 +734,14 @@ class Deque {
          */
         void pop_back () {
             _back = _back - 1;
-            _a.destroy(_back);
+            _inner_alloc.destroy(_back);
             assert(valid());}
 
         /**
          * removes the first element of this deque
          */
         void pop_front () {
-            _a.destroy(_front);
+            _inner_alloc.destroy(_front);
             _front = _front + 1;
             assert(valid());}
 
@@ -752,8 +754,8 @@ class Deque {
          * adds e to the end of the deque
          */
         void push_back (const_reference e) {
-            _a.construct(_back, e);
-            _back = _back + 1;
+          /*_a.construct(_back, e);
+            _back = _back + 1;*/
             assert(valid());}
 
         /**
@@ -761,8 +763,8 @@ class Deque {
          * adds e to the beginning of the deque
          */
         void push_front (const_reference e) {
-            _front = _front - 1;
-            _a.construct(_front, e);
+          /*_front = _front - 1;
+            _a.construct(_front, e);*/
             assert(valid());}
 
         // ------
