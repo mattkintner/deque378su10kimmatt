@@ -508,15 +508,23 @@ class Deque {
          * constructs a deque of size s filled with value v
          */
         explicit Deque (size_type s, const_reference v = value_type(), const allocator_type& a = allocator_type()) : _inner_alloc(a), INNER_SIZE(10) {
-        	pointer_pointer start = _outer_pfront = _outer_lfront = _outer_alloc.allocate(s/INNER_SIZE);
-        	size_type allocated = 0, filled = 0, skip;
-        	_outer_pback = _outer_lback = _outer_pfront + s/INNER_SIZE;
+		// Keeps track in the even that we have a non divisible size by 10 to add an extra spot in the physical array
+		size_type numInArray = s/INNER_SIZE+(s%INNER_SIZE ==0 ? 0:1);
+        	pointer_pointer start = _outer_pfront = _outer_lfront = _outer_alloc.allocate(numInArray);
+        	size_type allocated = 0,skip;
+        	_outer_pback = _outer_lback = _outer_pfront + numInArray;
+
+		//Creating Inner Arrays
         	while(start < _outer_pback) {
 	        	*start = _inner_alloc.allocate(INNER_SIZE);
 	        	allocated += INNER_SIZE;
                 ++start;
         	}
+
+		//Total number of spaces allocated minus the number of the size requested divided by 2 to help make it center loaded. 
         	skip = (allocated - s)/2;
+
+
         	_front = (*_outer_lfront)+skip;
         	_back = (*_outer_lback-1)+(INNER_SIZE-((allocated-s)-skip));
         	uninitialized_fill(_inner_alloc,begin(),end(),v);
