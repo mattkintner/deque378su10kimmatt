@@ -746,16 +746,39 @@ class Deque {
          * removes the last element of this deque
          */
         void pop_back () {
-            _back = _back - 1;
-            _inner_alloc.destroy(_back);
-            assert(valid());}
+           // Destroy the last element.
+	   _inner_alloc.destroy(_back-1);
+		
+	   //Change the outer back pointer to previous array and point to the last element of the previous array
+	   if(_back == *(_outer_lback-1)){
+		_inner_alloc.deallocate(*(_outer_lback -1), INNER_SIZE);
+		--_outer_lback;
+		_back = *(_outer_lback-1) + INNER_SIZE;
+		}
+	   else{
+		--_back;}
+
+	}
 
         /**
          * removes the first element of this deque
          */
         void pop_front () {
-            _inner_alloc.destroy(_front);
-            _front = _front + 1;
+
+		// Destroy the first element 
+	      	_inner_alloc.destroy(_front);
+
+	     // Change the outer front pointer to next array and point to the first element in the next array
+             if(_front == *_outer_lfront - (INNER_SIZE -1) ){
+		_inner_alloc.deallocate(*_outer_lfront,INNER_SIZE);
+		++_outer_lfront;
+		_front = *_outer_lfront;}
+
+	    //Otherwise the front is not at the end of the inner array
+	    else{
+		++_front;};
+	    
+		
             assert(valid());}
 
         // ----
