@@ -204,7 +204,7 @@ class Deque {
                 // data
                 // ----
 
-                pointer _element;
+                size_type _index;
                 Deque<T,A>* _deque;
 
             private:
@@ -224,7 +224,7 @@ class Deque {
                 /**
                  * <your documentation>
                  */
-                iterator (pointer element, Deque<T,A>* deque) : _element(element), _deque(deque) {
+                iterator (size_type index, Deque<T,A>* deque) : _index(index), _deque(deque) {
                     assert(valid());}
 
                 // Default copy, destructor, and copy assignment.
@@ -240,7 +240,7 @@ class Deque {
                  * <your documentation>
                  */
                 reference operator * () const {
-                    return *_element;}
+                    return _deque->operator[](_index);}
 
                 // -----------
                 // operator ->
@@ -260,7 +260,7 @@ class Deque {
                  * <your documentation>
                  */
                 iterator& operator ++ () {
-                    operator+=(1);
+                    ++_index;
                     assert(valid());
                     return *this;}
 
@@ -281,7 +281,7 @@ class Deque {
                  * <your documentation>
                  */
                 iterator& operator -- () {
-                    operator-=(1);
+                    --_index;
                     assert(valid());
                     return *this;}
 
@@ -302,7 +302,7 @@ class Deque {
                  * <your documentation>
                  */
                 iterator& operator += (difference_type d) {
-                    // <your code>
+                    _index += d;
                     assert(valid());
                     return *this;}
 
@@ -314,7 +314,7 @@ class Deque {
                  * <your documentation>
                  */
                 iterator& operator -= (difference_type d) {
-                    // <your code>
+                    _index -= d;
                     assert(valid());
                     return *this;}};
 
@@ -371,7 +371,7 @@ class Deque {
                 // data
                 // ----
 
-                pointer _element;
+                size_type _index;
                 Deque<T,A>* _deque;
 
             private:
@@ -391,7 +391,7 @@ class Deque {
                 /**
                  * <your documentation>
                  */
-                const_iterator (pointer element, Deque<T,A>* deque) : _element(element), _deque(deque) {
+                const_iterator (pointer element, Deque<T,A>* deque) : _index(index), _deque(deque) {
                     assert(valid());}
 
                 // Default copy, destructor, and copy assignment.
@@ -407,7 +407,7 @@ class Deque {
                  * <your documentation>
                  */
                 reference operator * () const {
-                    return *_element;}
+                    return _deque->operator[](_index);}
 
                 // -----------
                 // operator ->
@@ -427,7 +427,7 @@ class Deque {
                  * <your documentation>
                  */
                 const_iterator& operator ++ () {
-                    operator+=(1);
+                    ++_index;
                     assert(valid());
                     return *this;}
 
@@ -448,7 +448,7 @@ class Deque {
                  * <your documentation>
                  */
                 const_iterator& operator -- () {
-                    operator-=(1);
+                    --_index;
                     assert(valid());
                     return *this;}
 
@@ -468,8 +468,8 @@ class Deque {
                 /**
                  * <your documentation>
                  */
-                const_iterator& operator += (difference_type) {
-                    // <your code>
+                const_iterator& operator += (difference_type d) {
+                    _index += d;
                     assert(valid());
                     return *this;}
 
@@ -480,8 +480,8 @@ class Deque {
                 /**
                  * <your documentation>
                  */
-                const_iterator& operator -= (difference_type) {
-                    // <your code>
+                const_iterator& operator -= (difference_type d) {
+                    _index -= d;
                     assert(valid());
                     return *this;}};
 
@@ -508,11 +508,14 @@ class Deque {
          */
         explicit Deque (size_type s, const_reference v = value_type(), const allocator_type& a = allocator_type()) : _a(a), INNER_SIZE(10) {
         	pointer_pointer start = _outer_pfront = _outer_lfront = _outer_alloc.allocate(s/INNER_SIZE);
+        	size_type allocated = 0, filled = 0, skip;
         	_outer_pback = _outer_lback = _outer_pfront + s/INNER_SIZE;
         	while(start < _outer_pback) {
 	        	*start = _inner_alloc(INNER_SIZE);
+	        	allocated += INNER_SIZE;
         	}
-        	//fill
+        	skip = (allocated - s)/2;
+        	//uninitialized_fill(_inner_alloc,_outer_lfront+skip,  //still working on this
             assert(valid());}
 
         /**
