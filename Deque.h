@@ -528,7 +528,7 @@ class Deque {
 
 		//Set the logical array pointers
         	_front = (*_outer_lfront)+skip;
-        	_back = (*_outer_lback-1)+(INNER_SIZE-((allocated-s)-skip));
+        	_back = *(_outer_lback-1)+(INNER_SIZE-((allocated-s)-skip));
 
 		//Fill the array with the user's v
         	uninitialized_fill(_inner_alloc,begin(),end(),v);
@@ -550,7 +550,7 @@ class Deque {
         	}
         	skip = (allocated - s)/2;
         	_front = (*_outer_lfront)+skip;
-        	_back = (*_outer_lback-1)+(INNER_SIZE-((allocated-s)-skip));
+        	_back = *(_outer_lback-1)+(INNER_SIZE-((allocated-s)-skip));
         	uninitialized_copy(_inner_alloc,that.begin(),that.end(),begin());
             assert(valid());}
 
