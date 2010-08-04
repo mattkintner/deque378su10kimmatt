@@ -825,9 +825,11 @@ class Deque {
 	
 	//Copy current elements
 	while(tempiterator != _outer_pback){
-		*temp = *tempiterator;
+		_outer_alloc.construct(temp, *tempiterator);
+		_outer_alloc.destory(tempiterator);
 		++temp;
 		++tempiterator;}
+	_outer_alloc.deallocate(_outer_pfront,(_outer_pback-_outer_pfront));
 
 	_outer_pfront = _outer_lfront = tempfront;
 	_outer_lback = temp;
@@ -862,9 +864,45 @@ class Deque {
 		*_front = e;
 		}
 
+	//Else if there is space, add it to the front of the inner array
+          else if(_front != *_outer_lfront){
+		  
+		 --_front;
+		 *_front = e;}
 
+	//Else we are at the beginning of the inner array
 
+	else{
+	
+		if(_outer_lfront == _outer_pfront){
+		difference_type newsize = 2*(_outer_pback - _outer_pfront);
+		pointer_pointer tempfront =  _outer_alloc.allocate(newsize);
+		pointer_pointer temp = tempfront + newsize;
+		pointer_pointer tempiterator = _outer_pback;
 
+		//Copy our elements
+
+		while(tempiterator != _outer_pfront){
+
+		--tempiterator;
+		--temp;
+		
+		_outer_alloc.contruct(temp, *tempiterator);
+		_outer_alloc.destory(tempiterator);
+		}
+		_outer_alloc.deallocate(_outer_pfront,(_outer_pback-_outer_pfront));
+	
+		_outer_pfront = tempfront;
+		_outer_pback  = _outer_lback = tempfront + newsize;
+		_outer_lfront  = temp;
+
+		}
+		--_outer_lfront;		
+		_front = *_outer_lfront + (INNER_SIZE-1);
+
+		*_front = e;
+
+		}
 
             assert(valid());}
 
