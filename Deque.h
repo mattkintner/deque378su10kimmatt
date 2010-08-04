@@ -391,7 +391,7 @@ class Deque {
                 // -----------
 
                 /**
-                 * <your documentation>
+                 * make a read-only iterator
                  */
                 const_iterator (size_type index, Deque<T,A>* deque) : _index(index), _deque(deque) {
                     assert(valid());}
@@ -406,7 +406,7 @@ class Deque {
                 // ----------
 
                 /**
-                 * <your documentation>
+                 * Operator * is a read-write iterator
                  */
                 reference operator * () const {
                     return _deque->operator[](_index);}
