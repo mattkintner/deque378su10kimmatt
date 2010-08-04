@@ -176,7 +176,7 @@ class Deque {
                 // -----------
 
                 /**
-                 * <your documentation>
+                 * Equivalence Operator: Returns true if they are both equal in size, elements, and container type
                  */
                 friend bool operator == (const iterator& lhs, const iterator& rhs) {
                     return lhs._index == rhs._index && lhs._deque == rhs._deque;}
@@ -186,7 +186,7 @@ class Deque {
                 // ----------
 
                 /**
-                 * <your documentation>
+                 * Addition Operator: adds two iterators
                  */
                 friend iterator operator + (iterator lhs, difference_type rhs) {
                     return lhs += rhs;}
@@ -196,7 +196,7 @@ class Deque {
                 // ----------
 
                 /**
-                 * <your documentation>
+                 * Subtraction Operator: subtracts two iterators
                  */
                 friend iterator operator - (iterator lhs, difference_type rhs) {
                     return lhs -= rhs;}
@@ -224,7 +224,7 @@ class Deque {
                 // -----------
 
                 /**
-                 * <your documentation>
+                 * Default constructor that creates an iterator and a deque
                  */
                 iterator (size_type index, Deque<T,A>* deque) : _index(index), _deque(deque) {
                     assert(valid());}
@@ -239,7 +239,7 @@ class Deque {
                 // ----------
 
                 /**
-                 * <your documentation>
+                 * Pointer Operator returns a reference to an index
                  */
                 reference operator * () const {
                     return _deque->operator[](_index);}
@@ -249,7 +249,7 @@ class Deque {
                 // -----------
 
                 /**
-                 * <your documentation>
+                 * Operator -> returns pointer that is dereferenced twice from another pointer
                  */
                 pointer operator -> () const {
                     return &**this;}
@@ -259,7 +259,7 @@ class Deque {
                 // -----------
 
                 /**
-                 * <your documentation>
+                 * Preincrement operator adds one to the index.
                  */
                 iterator& operator ++ () {
                     ++_index;
@@ -267,7 +267,8 @@ class Deque {
                     return *this;}
 
                 /**
-                 * <your documentation>
+                 * @param Adds one to the value taken in and returns it's previous value
+		 * Post-increment operator adds the index by one and returns the previous value
                  */
                 iterator operator ++ (int) {
                     iterator x = *this;
@@ -280,7 +281,7 @@ class Deque {
                 // -----------
 
                 /**
-                 * <your documentation>
+                 * Pre-Decrement operator subtracts the index 
                  */
                 iterator& operator -- () {
                     --_index;
@@ -288,7 +289,8 @@ class Deque {
                     return *this;}
 
                 /**
-                 * <your documentation>
+                 * @param takes in an value to be decremented on
+		 * Post Decrement operator subtracts one from the int and returns the previous value
                  */
                 iterator operator -- (int) {
                     iterator x = *this;
@@ -301,7 +303,7 @@ class Deque {
                 // -----------
 
                 /**
-                 * <your documentation>
+                 * Plus equals operator to do the addition between a current object and parameter object
                  */
                 iterator& operator += (difference_type d) {
                     _index += d;
@@ -313,7 +315,7 @@ class Deque {
                 // -----------
 
                 /**
-                 * <your documentation>
+                 * Minus equals operator to do the difference with a current object and the parameter object.
                  */
                 iterator& operator -= (difference_type d) {
                     _index -= d;
@@ -343,7 +345,7 @@ class Deque {
                 // -----------
 
                 /**
-                 * <your documentation>
+                 * Equivalence opeartor between two read-only iterators
                  */
                 friend bool operator == (const const_iterator& lhs, const const_iterator& rhs) {
                     return lhs._index == rhs._index && lhs._deque == rhs._deque;}
@@ -353,7 +355,7 @@ class Deque {
                 // ----------
 
                 /**
-                 * <your documentation>
+                 * Addition operator between an iterator and difference type
                  */
                 friend const_iterator operator + (const_iterator lhs, difference_type rhs) {
                     return lhs += rhs;}
@@ -363,7 +365,7 @@ class Deque {
                 // ----------
 
                 /**
-                 * <your documentation>
+                 * Subtraction operator between an iterator and a difference type
                  */
                 friend const_iterator operator - (const_iterator lhs, difference_type rhs) {
                     return lhs -= rhs;}
@@ -416,7 +418,7 @@ class Deque {
                 // -----------
 
                 /**
-                 * <your documentation>
+                 * Forward operator dereferences from a pointer to retrieve another pointer
                  */
                 pointer operator -> () const {
                     return &**this;}
@@ -426,7 +428,7 @@ class Deque {
                 // -----------
 
                 /**
-                 * <your documentation>
+                 * Pre increment adds one to the current value
                  */
                 const_iterator& operator ++ () {
                     ++_index;
@@ -434,7 +436,7 @@ class Deque {
                     return *this;}
 
                 /**
-                 * <your documentation>
+                 * Post increment adds one to the current value and returns the previous value
                  */
                 const_iterator operator ++ (int) {
                     const_iterator x = *this;
@@ -447,7 +449,7 @@ class Deque {
                 // -----------
 
                 /**
-                 * <your documentation>
+                 * Pre decrement subtracts the current value by one
                  */
                 const_iterator& operator -- () {
                     --_index;
@@ -455,8 +457,8 @@ class Deque {
                     return *this;}
 
                 /**
-                 * <your documentation>
-                 */
+                 * Post decrement subtracts current value by one and returns the previous value.
+		*/
                 const_iterator operator -- (int) {
                     const_iterator x = *this;
                     --(*this);
@@ -468,7 +470,8 @@ class Deque {
                 // -----------
 
                 /**
-                 * <your documentation>
+                 * Plus equals operator adds the parameter value to the current value
+		 * @param d is the amount to be added.
                  */
                 const_iterator& operator += (difference_type d) {
                     _index += d;
@@ -480,7 +483,8 @@ class Deque {
                 // -----------
 
                 /**
-                 * <your documentation>
+                 * Minus equals operator subtracts the parameter value from the current value
+		 * @param d is the amount to be subtracted
                  */
                 const_iterator& operator -= (difference_type d) {
                     _index -= d;
@@ -536,7 +540,7 @@ class Deque {
 
         /**
          * Copy Constructor
-         * @param that the deque to copy into this deque
+         * @param the deque to copy into this deque
          */
         Deque (const Deque& that) : _inner_alloc(that._inner_alloc), _outer_alloc(that._outer_alloc), INNER_SIZE(10) {
 	        size_type s = that.size();
@@ -579,10 +583,13 @@ class Deque {
         // ----------
 
         /**
-         * <your documentation>
+         * Assignment Operator: Copies the elements of parameter deque to our current deque.
          */
         Deque& operator = (const Deque& rhs) {
-            // <your code>
+           
+	   resize(rhs.size());
+	   std::copy(rhs.begin(), rhs.end(), begin());
+		
             assert(valid());
             return *this;}
 
