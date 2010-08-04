@@ -968,7 +968,8 @@ class Deque {
          * @return the number of elements currently in this deque
          */
         size_type size () const {
-            return (_outer_lback - _outer_lfront)*INNER_SIZE - (_front - *_outer_lfront) - ((*(_outer_lback-1)+INNER_SIZE) - _back);}
+            if(_outer_pfront==0) return 0;
+            return ((_outer_lback - _outer_lfront)*INNER_SIZE) - (_front - *_outer_lfront) - ((*(_outer_lback-1)+INNER_SIZE) - _back);}
 
         // ----
         // swap
