@@ -602,9 +602,14 @@ class Deque {
          * @return a reference to that element
          */
         reference operator [] (size_type index) {
+            std::cout << _outer_lfront << " " << index << std::endl;
 	        difference_type offset = _front - *_outer_lfront;
-
-            return _outer_lfront[(index+offset)/INNER_SIZE][((index%INNER_SIZE)+offset)%INNER_SIZE];}
+                std::cout << "got here" << std::endl;
+                pointer_pointer y = _outer_lfront+(index+offset)/INNER_SIZE;
+                std::cout << "y is " << y << " : " << _outer_lfront << " + ( " << index << " + " << offset << " ) / " << INNER_SIZE << std::endl;
+                pointer x = *(y);
+                std::cout << "x is " << x << std::endl;
+            return *( x + (((index%INNER_SIZE)+offset)%INNER_SIZE) );}
 
         /**
          * @param index the index of the element to return
