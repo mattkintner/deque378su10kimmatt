@@ -731,12 +731,25 @@ class Deque {
         // ------
 
         /**
-         * <your documentation>
+         * @param  i to be the target location for the deque
+	 * @param  v the value to be inserted
+	 * @return i back to the user to show process was completed
          */
-        iterator insert (iterator, const_reference) {
-            // <your code>
+        iterator insert (iterator i, const_reference v) {
+            
+	    push_back(v);
+	    iterator x = end();
+	
+	//Iterate from the back of the array and keep swapping until you reach your desired location
+	    while(x != i){
+		--x;
+		*x = *(x-1);
+		}
+
+	    *i = v;
+	
             assert(valid());
-            return iterator();}
+            return i;}
 
         // ---
         // pop
