@@ -703,12 +703,23 @@ class Deque {
         // -----
 
         /**
-         * <your documentation>
+         * @param i is the location to be erased
+	 * @return i to show the iterator the process was completed.
          */
-        iterator erase (iterator) {
-            // <your code>
+        iterator erase (iterator i) {
+      
+	     	iterator x = i;
+		
+		//Swap the next element into the current position
+		while(x != (end()-1)){
+		*x = *x+1;
+		++x;
+		}
+		
+		pop_back();
+	
             assert(valid());
-            return iterator();}
+            return i;}
 
         // -----
         // front
