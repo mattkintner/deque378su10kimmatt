@@ -1,0 +1,211 @@
+commit 2165c6806f2a3a9bd51ecf9a2db5ccd73609c698
+Merge: f019d1f 6d513f1
+Author: ktimm3 <ktimm3@gmail.com>
+Date:   Tue Aug 3 23:15:44 2010 -0500
+
+    Merge branch 'master' of github.com:mattkintner/deque378su10kimmatt
+
+commit 6d513f1354dfcdf49d2ecdcc2a565b3872807977
+Author: Matthew Kintner <kintner@kestenbaum.cs.utexas.edu>
+Date:   Tue Aug 3 21:36:32 2010 -0500
+
+    in the middle of debugging
+
+commit df14f7651ee409c5b5f48f670ae846917811618c
+Author: Matthew Kintner <kintner@kestenbaum.cs.utexas.edu>
+Date:   Tue Aug 3 21:13:16 2010 -0500
+
+    fixed mistake in Deque::valid()
+
+commit 38dcff4e1f20aa7d65b2efcf3c592cbeb91511eb
+Author: Matthew Kintner <kintner@kestenbaum.cs.utexas.edu>
+Date:   Tue Aug 3 21:05:19 2010 -0500
+
+    fixed size error
+
+commit 01b330055e5de626904806bb4b551935ca478e8a
+Author: Matthew Kintner <kintner@kestenbaum.cs.utexas.edu>
+Date:   Tue Aug 3 20:57:15 2010 -0500
+
+    fixed a few more things
+
+commit 474101e2221b01bac1f2d6e9344be3e7870e312c
+Author: Matthew Kintner <kintner@kestenbaum.cs.utexas.edu>
+Date:   Tue Aug 3 20:56:07 2010 -0500
+
+    fixed a few minor errors
+
+commit 7c6573c70f2dff627009a13efe78d6db70bc4716
+Author: Kimberly Bassett <ktimm3@wertheimer.cs.utexas.edu>
+Date:   Tue Aug 3 20:52:23 2010 -0500
+
+    Finished Documentation
+
+commit f77feabf5563f7a817eb5ae1a89cb3a279c8d522
+Author: Kimberly Bassett <ktimm3@wertheimer.cs.utexas.edu>
+Date:   Tue Aug 3 20:26:36 2010 -0500
+
+    Documentation on operator *
+
+commit 2bc325b9cda4adb97b93e9effa1e81923ee504c7
+Author: Matthew Kintner <kintner@kestenbaum.cs.utexas.edu>
+Date:   Tue Aug 3 20:16:29 2010 -0500
+
+    fixed error in const_iterator constuctor
+
+commit 19444d329e6f435b5689bae413d0289cda07d154
+Author: Kimberly Bassett <ktimm3@wertheimer.cs.utexas.edu>
+Date:   Tue Aug 3 20:14:10 2010 -0500
+
+    Finished Erase
+
+commit 05632542a196f524d3f053f7f17b966756b821b1
+Author: Kimberly Bassett <ktimm3@wertheimer.cs.utexas.edu>
+Date:   Tue Aug 3 20:07:10 2010 -0500
+
+    Finished Insert
+
+commit b20d73bbca6b4df7a46380d7bf9dfe3eb6314324
+Author: Kimberly Bassett <ktimm3@wertheimer.cs.utexas.edu>
+Date:   Tue Aug 3 19:51:49 2010 -0500
+
+    Fixed typos
+
+commit 87c98c56104ae310edbb03cd130a7d4170e2ca20
+Author: Kimberly Bassett <ktimm3@wertheimer.cs.utexas.edu>
+Date:   Tue Aug 3 19:49:10 2010 -0500
+
+    Finished Push front
+
+commit 2793fce0cf9fa46c51f19d10f0dcce3c26d0dd1a
+Author: Kimberly Bassett <ktimm3@wertheimer.cs.utexas.edu>
+Date:   Tue Aug 3 19:33:27 2010 -0500
+
+    Finished Push Back
+
+commit ca66546acccc6304d7af85363f5442ee023b10f8
+Author: Kimberly Bassett <ktimm3@wertheimer.cs.utexas.edu>
+Date:   Tue Aug 3 18:58:37 2010 -0500
+
+    Finished Push and Pop
+
+commit 384a58f4ff8c6867c3066b126e7a61e8213c26aa
+Author: Kimberly Bassett <ktimm3@wertheimer.cs.utexas.edu>
+Date:   Tue Aug 3 18:19:00 2010 -0500
+
+    Fixed Copy Constructor
+
+commit 976b99b0701a421bb3f92899741e9d2d032bf4d5
+Author: Kimberly Bassett <ktimm3@wertheimer.cs.utexas.edu>
+Date:   Tue Aug 3 18:12:32 2010 -0500
+
+    Fixed Constructor
+
+commit 04406c5ba238adafe95e15b43105b7993b2abacd
+Author: Kimberly Bassett <ktimm3@wertheimer.cs.utexas.edu>
+Date:   Tue Aug 3 17:27:01 2010 -0500
+
+    Added a few edits
+
+commit c282a06ad40521333ee09ebd64d3a82d1afd3d13
+Author: Kimberly Bassett <ktimm3@wertheimer.cs.utexas.edu>
+Date:   Tue Aug 3 17:15:59 2010 -0500
+
+    Kim's first successful commit w/ edited constructor
+
+commit 3720971063a4f4f9017e096cea2fcf09c6b3bf07
+Author: Matthew Kintner <kintner@unknown-hacker.cs.utexas.edu>
+Date:   Tue Aug 3 01:03:43 2010 -0500
+
+    fixed some more errors, compiling but segfault
+
+commit 4173276be0e8e4ad239c69c0eb6f942c2ccd72d0
+Author: Matthew Kintner <kintner@cs.utexas.edu>
+Date:   Tue Aug 3 00:40:02 2010 -0500
+
+    fixed a few more errors
+
+commit 632c66b662b9908fcc291153cbf83595629e9d0c
+Author: Matthew Kintner <kintner@cs.utexas.edu>
+Date:   Tue Aug 3 00:34:42 2010 -0500
+
+    fixed minor error in iterator equivalency
+
+commit 66ff0f134f891bc88a48536b7cab27086e88732f
+Author: Matthew Kintner <kintner@cs.utexas.edu>
+Date:   Mon Aug 2 23:42:15 2010 -0500
+
+    constructors done, need testing
+
+commit 13485be6e3cc40aa1c7beb929e7fa9392ca1e105
+Author: Matthew Kintner <kintner@cs.utexas.edu>
+Date:   Mon Aug 2 20:45:52 2010 -0500
+
+    a few more minor changes
+
+commit f47436f0789b7c8ef1666605e6ec422f38866558
+Author: Matthew Kintner <kintner@cs.utexas.edu>
+Date:   Mon Aug 2 20:08:49 2010 -0500
+
+    a bit more work done
+
+commit bb55882a185a8e590491cc44c373b83a00ab6e41
+Author: Matthew Kintner <kintner@cs.utexas.edu>
+Date:   Mon Aug 2 02:40:29 2010 -0500
+
+    more work done on 2d
+
+commit f019d1f3a26ac4caa47da4192ce60a17a9ec734b
+Merge: a97b393 7f3485c
+Author: ktimm3 <ktimm3@gmail.com>
+Date:   Sun Aug 1 21:59:45 2010 -0500
+
+    Merge branch 'master' of github.com:mattkintner/deque378su10kimmatt
+
+commit a97b393592c1b806a0a7299720a34dffaf0a4ac8
+Author: ktimm3 <ktimm3@gmail.com>
+Date:   Sun Aug 1 21:55:00 2010 -0500
+
+    adding a text file
+
+commit 7f3485c664f5d5707b136ce7b8d28caea15f1a5b
+Author: Matthew Kintner <kintner@abramson.cs.utexas.edu>
+Date:   Sun Aug 1 20:37:19 2010 -0500
+
+    a few more methods completed
+
+commit 60336bfbe339d0a5b53844023717c380ba122301
+Author: Matthew Kintner <kintner@abramson.cs.utexas.edu>
+Date:   Sun Aug 1 20:08:09 2010 -0500
+
+    began change to 2d
+
+commit cc56e86c2b1e3ea46ca94b7ed69357a53d9e97b2
+Author: Matthew Kintner <kintner@unknown-hacker.cs.utexas.edu>
+Date:   Wed Jul 28 07:41:25 2010 -0500
+
+    implemented fill constructor
+
+commit 8f9145e08ba21b3f91e0e713166c296e25044e18
+Author: Matthew Kintner <kintner@unknown-hacker.cs.utexas.edu>
+Date:   Wed Jul 28 07:34:57 2010 -0500
+
+    added some documentation
+
+commit a1d0426fac47025590a35fb5d6691916db1c937a
+Author: Matthew Kintner <kintner@unknown-hacker.cs.utexas.edu>
+Date:   Wed Jul 28 07:15:19 2010 -0500
+
+    added resize
+
+commit 14c7a1339dd05f01e72cca40d36b24e99aa140ab
+Author: Matthew Kintner <kintner@unknown-hacker.cs.utexas.edu>
+Date:   Tue Jul 27 07:20:05 2010 -0500
+
+    basic functionality added
+
+commit 58257d39e66dde96722846c465b27a23454dd46a
+Author: U-PASSPORT\Matt <Matt@passport.(none)>
+Date:   Sun Jul 25 21:35:42 2010 -0500
+
+    adding initial files
