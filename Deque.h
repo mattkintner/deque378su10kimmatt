@@ -801,7 +801,7 @@ class Deque {
 		//Make it center loaded
 		_front = *_outer_lfront +(INNER_SIZE/2);
 
-		_back  = _front +1:	
+		_back  = _front +1;	
 		
 		*_front = e;
 		}
@@ -826,7 +826,7 @@ class Deque {
 	//Copy current elements
 	while(tempiterator != _outer_pback){
 		_outer_alloc.construct(temp, *tempiterator);
-		_outer_alloc.destory(tempiterator);
+		_outer_alloc.destroy(tempiterator);
 		++temp;
 		++tempiterator;}
 	_outer_alloc.deallocate(_outer_pfront,(_outer_pback-_outer_pfront));
@@ -859,7 +859,7 @@ class Deque {
 		//Make it center loaded
 		_front = *_outer_lfront +(INNER_SIZE/2);
 
-		_back  = _front +1:	
+		_back  = _front +1;	
 		
 		*_front = e;
 		}
@@ -887,8 +887,8 @@ class Deque {
 		--tempiterator;
 		--temp;
 		
-		_outer_alloc.contruct(temp, *tempiterator);
-		_outer_alloc.destory(tempiterator);
+		_outer_alloc.construct(temp, *tempiterator);
+		_outer_alloc.destroy(tempiterator);
 		}
 		_outer_alloc.deallocate(_outer_pfront,(_outer_pback-_outer_pfront));
 	
