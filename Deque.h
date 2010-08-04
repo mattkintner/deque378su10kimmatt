@@ -376,7 +376,7 @@ class Deque {
                 // ----
 
                 size_type _index;
-                Deque* _deque;
+                const Deque* _deque;
 
             private:
                 // -----
@@ -395,7 +395,7 @@ class Deque {
                 /**
                  * make a read-only iterator
                  */
-                const_iterator (size_type index, Deque* deque) : _index(index), _deque(deque) {
+                const_iterator (size_type index, const Deque* deque) : _index(index), _deque(deque) {
                     assert(valid());}
 
                 // Default copy, destructor, and copy assignment.
@@ -545,7 +545,7 @@ class Deque {
         Deque (const Deque& that) : _inner_alloc(that._inner_alloc), _outer_alloc(that._outer_alloc), INNER_SIZE(10) {
 	        size_type s = that.size();
             pointer_pointer start = _outer_pfront = _outer_lfront = _outer_alloc.allocate(s/INNER_SIZE);
-        	size_type allocated = 0, filled = 0, skip;
+        	size_type allocated = 0, skip;
         	_outer_pback = _outer_lback = _outer_pfront + s/INNER_SIZE;
         	while(start < _outer_pback) {
 	        	*start = _inner_alloc.allocate(INNER_SIZE);
