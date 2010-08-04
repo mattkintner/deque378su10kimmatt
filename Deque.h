@@ -393,7 +393,7 @@ class Deque {
                 /**
                  * <your documentation>
                  */
-                const_iterator (pointer element, Deque<T,A>* deque) : _index(index), _deque(deque) {
+                const_iterator (size_type index, Deque<T,A>* deque) : _index(index), _deque(deque) {
                     assert(valid());}
 
                 // Default copy, destructor, and copy assignment.
