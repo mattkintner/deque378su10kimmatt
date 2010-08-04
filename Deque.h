@@ -151,7 +151,7 @@ class Deque {
 
         bool valid () const {
             return (_outer_pfront == 0 && _outer_lfront == 0 && _outer_lback == 0 && _outer_pback == 0 && _front == 0 && _back == 0)
-                || (_outer_pfront <= _outer_lfront && _outer_lfront <= _outer_lback && _outer_lback <= _outer_pback && *_outer_lfront <= _front && _back >= *(_outer_lback-1) + INNER_SIZE);}
+                || (_outer_pfront <= _outer_lfront && _outer_lfront <= _outer_lback && _outer_lback <= _outer_pback && *_outer_lfront <= _front && _back <= *(_outer_lback-1) + INNER_SIZE);}
 
     public:
         // --------
