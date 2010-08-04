@@ -151,7 +151,7 @@ class Deque {
 
         bool valid () const {
             return (_outer_pfront == 0 && _outer_lfront == 0 && _outer_lback == 0 && _outer_pback == 0 && _front == 0 && _back == 0)
-                || (_outer_pfront <= _outer_lfront && _outer_lfront <= _outer_lback && _outer_lback <= _outer_pback && *_outer_lfront <= _front && _back < *(_outer_lback-1) + INNER_SIZE);}
+                || (_outer_pfront <= _outer_lfront && _outer_lfront <= _outer_lback && _outer_lback <= _outer_pback && *_outer_lfront <= _front && _back >= *(_outer_lback-1) + INNER_SIZE);}
 
     public:
         // --------
@@ -207,7 +207,7 @@ class Deque {
                 // ----
 
                 size_type _index;
-                Deque<T,A>* _deque;
+                Deque* _deque;
 
             private:
                 // -----
@@ -226,7 +226,7 @@ class Deque {
                 /**
                  * Default constructor that creates an iterator and a deque
                  */
-                iterator (size_type index, Deque<T,A>* deque) : _index(index), _deque(deque) {
+                iterator (size_type index, Deque* deque) : _index(index), _deque(deque) {
                     assert(valid());}
 
                 // Default copy, destructor, and copy assignment.
@@ -376,7 +376,7 @@ class Deque {
                 // ----
 
                 size_type _index;
-                Deque<T,A>* _deque;
+                Deque* _deque;
 
             private:
                 // -----
@@ -395,7 +395,7 @@ class Deque {
                 /**
                  * make a read-only iterator
                  */
-                const_iterator (size_type index, Deque<T,A>* deque) : _index(index), _deque(deque) {
+                const_iterator (size_type index, Deque* deque) : _index(index), _deque(deque) {
                     assert(valid());}
 
                 // Default copy, destructor, and copy assignment.
