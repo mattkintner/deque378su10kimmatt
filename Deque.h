@@ -790,8 +790,56 @@ class Deque {
          * adds e to the end of the deque
          */
         void push_back (const_reference e) {
-          /*_a.construct(_back, e);
-            _back = _back + 1;*/
+
+	//If our pointers are null, make a deque
+           if(_outer_pfront == 0){
+		_outer_pfront = _outer_lfront = _outer_alloc.allocate(1);
+		_outer_pback = _outer_lback = _outer_pfront+1;
+		
+		*_outer_lfront = _inner_alloc.allocate(INNER_SIZE);
+	
+		//Make it center loaded
+		_front = *_outer_lfront +(INNER_SIZE/2);
+
+		_back  = _front +1:	
+		
+		*_front = e;
+		}
+
+	//If you already have some space in the back of the array
+	else if(_back != *(_outer_lback -1) + INNER_SIZE){
+	
+		*_back = e;
+
+		++_back;}
+
+	//Else you are at your last element of the last inner array. Time to resize.
+	else{
+		
+	//Check to see if you have space in the physical array
+	if(_outer_lback == _outer_pback){
+	difference_type newsize = 2*(_outer_pback - _outer_pfront);
+	pointer_pointer tempfront =  _outer_alloc.allocate(newsize);
+	pointer_pointer temp = tempfront;
+	pointer_pointer tempiterator = _outer_pfront;
+	
+	//Copy current elements
+	while(tempiterator != _outer_pback){
+		*temp = *tempiterator;
+		++temp;
+		++tempiterator;}
+
+	_outer_pfront = _outer_lfront = tempfront;
+	_outer_lback = temp;
+	_outer_pback = tempfront + newsize;}
+
+	//add the e
+	++_outer_lback;
+	_back = *(_outer_lback -1);
+	*_back = e;
+	++_back;
+	}
+		
             assert(valid());}
 
         /**
@@ -799,8 +847,25 @@ class Deque {
          * adds e to the beginning of the deque
          */
         void push_front (const_reference e) {
-          /*_front = _front - 1;
-            _a.construct(_front, e);*/
+      	   //If our pointers are null, make a deque
+           if(_outer_pfront == 0){
+		_outer_pfront = _outer_lfront = _outer_alloc.allocate(1);
+		_outer_pback = _outer_lback = _outer_pfront+1;
+		
+		*_outer_lfront = _inner_alloc.allocate(INNER_SIZE);
+	
+		//Make it center loaded
+		_front = *_outer_lfront +(INNER_SIZE/2);
+
+		_back  = _front +1:	
+		
+		*_front = e;
+		}
+
+
+
+
+
             assert(valid());}
 
         // ------
